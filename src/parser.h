@@ -3,14 +3,21 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <vector>
 
 class Parser {
 public:
 	explicit Parser(char* inputFileName);
 	void parseFile();
 private:
+	bool getAxiom();
+	bool getRules();
+	void getNextLine(std::string &nextLine);
 	std::ifstream inputFile_;
-	char line[256];
+	std::string line;
+	std::string axiom;
+	std::vector<char*> v;
 };
 
 #endif

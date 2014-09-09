@@ -1,6 +1,6 @@
-Axioma: 
+Axiom:
 	ABA
-Regras: 
+Rules: 
 	A -> AB
 	B -> AA
 Iterações: 
