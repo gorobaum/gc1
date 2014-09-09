@@ -1,0 +1,7 @@
+Axioma: 
+	ABA
+Regras: 
+	A -> AB
+	B -> AA
+Iterações: 
+	3

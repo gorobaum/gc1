@@ -5,6 +5,7 @@ project (ep1)
 include_directories (src)
 
 add_executable(main 
-	src/main.cxx)
+	src/main.cxx
+	src/parser.cxx)
 
 list( APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
