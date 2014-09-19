@@ -6,17 +6,10 @@ Parser::Parser(char* inputFileName) {
 	inputFile_.open(inputFileName);
 }
 
-
 void Parser::parseFile() {
-	if (getAxiom()) {
-		if(getRules()) {
-			if(getIterations()) {
-
-			}
-		}
-	} else {
-		std::cout << "The file has some error\n";
-	}
+	if (!getAxiom()) std::cout << "The Axiom has some error\n";
+	else if (!getRules()) std::cout << "The Rules has some error\n";
+	else if (!getIterations()) std::cout << "The Iteration has some error\n";
 	std::cout << axiom << "\n";
 	for (std::vector<std::string>::iterator it = rules.begin() ; it != rules.end(); ++it)
     	std::cout << *it << "\n";

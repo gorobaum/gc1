@@ -1,8 +1,8 @@
 Axiom:
 ABA
 Rules:
-A -> AB
-B -> AA
+A:AB
+B:AA
 endRules
 Iterations:
 4	
