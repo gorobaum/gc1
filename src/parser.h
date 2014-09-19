@@ -13,11 +13,13 @@ public:
 private:
 	bool getAxiom();
 	bool getRules();
+	bool getIterations();
 	void getNextLine(std::string &nextLine);
 	std::ifstream inputFile_;
 	std::string line;
 	std::string axiom;
-	std::vector<char*> v;
+	std::vector<std::string> rules;
+	int iterations;
 };
 
 #endif
