@@ -356,6 +356,21 @@ Reference<Shape> MakeShape(const string &name,
     return s;
 }
 
+// Object Creation Function Definitions
+Reference<Shape> MakeAutomata(const string &name,
+        const Transform *object2world, const Transform *world2object,
+        bool reverseOrientation, const ParamSet &paramSet) {
+    Shape *s = NULL;
+
+    if (name == "wtf")
+        s = CreateSphereShape(object2world, world2object,
+                              reverseOrientation, paramSet);
+    else
+        Warning("Shape \"%s\" unknown.", name.c_str());
+    paramSet.ReportUnused();
+    return s;
+}
+
 
 Reference<Material> MakeMaterial(const string &name,
         const Transform &mtl2world,
@@ -986,6 +1001,77 @@ void pbrtAreaLightSource(const string &name,
     graphicsState.areaLightParams = params;
 }
 
+
+void pbrtAutomata(const string &name, const ParamSet &params){
+	VERIFY_WORLD("Automata");
+	Reference<Primitive> prim;
+    AreaLight *area = NULL;
+    if (!curTransform.IsAnimated()) {
+        // Create primitive for static shape
+        Transform *obj2world, *world2obj;
+        transformCache.Lookup(curTransform[0], &obj2world, &world2obj);
+        Reference<Shape> shape = MakeAutomata(name, obj2world, world2obj,
+            graphicsState.reverseOrientation, params);
+        if (!shape) return;
+        Reference<Material> mtl = graphicsState.CreateMaterial(params);
+        params.ReportUnused();
+
+        // Possibly create area light for shape
+        if (graphicsState.areaLight != "") {
+            area = MakeAreaLight(graphicsState.areaLight, curTransform[0],
+                                 graphicsState.areaLightParams, shape);
+        }
+        prim = new GeometricPrimitive(shape, mtl, area);
+    } else {
+        // Create primitive for animated shape
+
+        // Create initial _Shape_ for animated shape
+        if (graphicsState.areaLight != "")
+            Warning("Ignoring currently set area light when creating "
+                    "animated shape");
+        Transform *identity;
+        transformCache.Lookup(Transform(), &identity, NULL);
+        Reference<Shape> shape = MakeAutomata(name, identity, identity,
+            graphicsState.reverseOrientation, params);
+        if (!shape) return;
+        Reference<Material> mtl = graphicsState.CreateMaterial(params);
+        params.ReportUnused();
+
+        // Get _animatedWorldToObject_ transform for shape
+        Assert(MAX_TRANSFORMS == 2);
+        Transform *world2obj[2];
+        transformCache.Lookup(curTransform[0], NULL, &world2obj[0]);
+        transformCache.Lookup(curTransform[1], NULL, &world2obj[1]);
+        AnimatedTransform
+             animatedWorldToObject(world2obj[0], renderOptions->transformStartTime,
+                                   world2obj[1], renderOptions->transformEndTime);
+        Reference<Primitive> baseprim = new GeometricPrimitive(shape, mtl, NULL);
+        if (!baseprim->CanIntersect()) {
+            // Refine animated shape and create BVH if more than one shape created
+            vector<Reference<Primitive> > refinedPrimitives;
+            baseprim->FullyRefine(refinedPrimitives);
+            if (refinedPrimitives.size() == 0) return;
+            if (refinedPrimitives.size() > 1)
+                baseprim = new BVHAccel(refinedPrimitives);
+            else
+                baseprim = refinedPrimitives[0];
+        }
+        prim = new TransformedPrimitive(baseprim, animatedWorldToObject);
+    }
+    // Add primitive to scene or current instance
+    if (renderOptions->currentInstance) {
+        if (area)
+            Warning("Area lights not supported with object instancing");
+        renderOptions->currentInstance->push_back(prim);
+    }
+    
+    else {
+        renderOptions->primitives.push_back(prim);
+        if (area != NULL) {
+            renderOptions->lights.push_back(area);
+        }
+    }
+}
 
 void pbrtShape(const string &name, const ParamSet &params) {
     VERIFY_WORLD("Shape");

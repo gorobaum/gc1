@@ -78,6 +78,7 @@ void pbrtNamedMaterial(const string &name);
 void pbrtLightSource(const string &name, const ParamSet &params);
 void pbrtAreaLightSource(const string &name, const ParamSet &params);
 void pbrtShape(const string &name, const ParamSet &params);
+void pbrtAutomata(const string &name, const ParamSet &params);
 void pbrtReverseOrientation();
 void pbrtVolume(const string &name, const ParamSet &params);
 void pbrtObjectBegin(const string &name);
