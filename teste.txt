@@ -1,7 +1,8 @@
 Axiom:
-	ABA
-Rules: 
-	A -> AB
-	B -> AA
-Iterações: 
-	3
+ABA
+Rules:
+A -> AB
+B -> AA
+endRules
+Iterations:
+4	
