@@ -10,10 +10,13 @@ class Parser {
 public:
 	explicit Parser(char* inputFileName);
 	void parseFile();
+	std::string getAxiom() { return axiom; }
+	std::vector<std::string> getRules() { return rules; }
+	int getIterations() { return iterations; }
 private:
-	bool getAxiom();
-	bool getRules();
-	bool getIterations();
+	bool parseAxiom();
+	bool parserules();
+	bool parseIterations();
 	void getNextLine(std::string &nextLine);
 	std::ifstream inputFile_;
 	std::string line;

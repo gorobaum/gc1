@@ -6,6 +6,7 @@ include_directories (src)
 
 add_executable(main 
 	src/main.cxx
-	src/parser.cxx)
+	src/parser.cxx
+	src/automata.cxx)
 
 list( APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")

@@ -7,13 +7,9 @@ Parser::Parser(char* inputFileName) {
 }
 
 void Parser::parseFile() {
-	if (!getAxiom()) std::cout << "The Axiom has some error\n";
-	else if (!getRules()) std::cout << "The Rules has some error\n";
-	else if (!getIterations()) std::cout << "The Iteration has some error\n";
-	std::cout << axiom << "\n";
-	for (std::vector<std::string>::iterator it = rules.begin() ; it != rules.end(); ++it)
-    	std::cout << *it << "\n";
-   	std::cout << iterations << "\n";
+	if (!parseAxiom()) std::cout << "The Axiom has some error\n";
+	else if (!parserules()) std::cout << "The Rules has some error\n";
+	else if (!parseIterations()) std::cout << "The Iteration has some error\n";
 }
 
 void Parser::getNextLine(std::string &nextLine) {
@@ -22,7 +18,7 @@ void Parser::getNextLine(std::string &nextLine) {
 	nextLine.assign(line);
 }
 
-bool Parser::getAxiom() {
+bool Parser::parseAxiom() {
 	getNextLine(line);
 	bool gotAxiom = false;
 	if(line.compare("Axiom:") == 0) {
@@ -32,7 +28,7 @@ bool Parser::getAxiom() {
 	return gotAxiom;
 }
 
-bool Parser::getRules() {
+bool Parser::parserules() {
 	getNextLine(line);
 	bool gotRules = false;
 	if(line.compare("Rules:") == 0) {
@@ -47,7 +43,7 @@ bool Parser::getRules() {
 	return gotRules;
 }
 
-bool Parser::getIterations() {
+bool Parser::parseIterations() {
 	bool gotIterations = false;
 	getNextLine(line);
 	if(line.compare("Iterations:") == 0) {
