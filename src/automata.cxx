@@ -6,14 +6,14 @@
 
 Automata::Automata(std::string axiom, std::vector<std::string> stringRules, int iterations) {
 	iterations_ = iterations;
-	putInState(currentState, axiom);
+	putInAutomataState(currentAutomataState, axiom);
 	initializeRules(stringRules);
 }
 
-void Automata::putInState(State &state, std::string partialState) {
-	for(std::string::iterator it=partialState.begin(); it!=partialState.end(); ++it) {
+void Automata::putInAutomataState(AutomataState &AutomataState, std::string partialAutomataState) {
+	for(std::string::iterator it=partialAutomataState.begin(); it!=partialAutomataState.end(); ++it) {
 		std::string character(1, *it);
-		state.push(character);
+		AutomataState.push(character);
 	}
 }
 
@@ -28,11 +28,11 @@ void Automata::initializeRules(std::vector<std::string> stringRules) {
 	}
 }
 
-void Automata::printState(State state) {
-	while(!state.empty()) {
-		std::string partialState = state.front();
-		state.pop();
-		std::cout << partialState;
+void Automata::printAutomataState(AutomataState AutomataState) {
+	while(!AutomataState.empty()) {
+		std::string partialAutomataState = AutomataState.front();
+		AutomataState.pop();
+		std::cout << partialAutomataState;
 	}
 	std::cout << "\n";
 }
@@ -40,19 +40,19 @@ void Automata::printState(State state) {
 void Automata::run() {
 	for(int iteration = 0; iteration < iterations_; iteration++) {
 		std::cout << "Starting iteration " << iteration << "\n";
-		State nextState;
-		while(!currentState.empty()) {
-			std::string character = currentState.front();
-			currentState.pop();
+		AutomataState nextAutomataState;
+		while(!currentAutomataState.empty()) {
+			std::string character = currentAutomataState.front();
+			currentAutomataState.pop();
 			Rules::const_iterator got = rules.find(character);
 			if(got != rules.end()) {
-				std::string partialState =  got->second;
-				putInState(nextState, partialState);
+				std::string partialAutomataState =  got->second;
+				putInAutomataState(nextAutomataState, partialAutomataState);
 			} else {
-				putInState(nextState, character);
+				putInAutomataState(nextAutomataState, character);
 			}
 		}
-		currentState = nextState;
-		printState(currentState);
+		currentAutomataState = nextAutomataState;
+		printAutomataState(currentAutomataState);
 	}
 }

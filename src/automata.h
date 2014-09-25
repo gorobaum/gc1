@@ -7,7 +7,7 @@
 #include <queue>
 
 typedef std::unordered_map<std::string,std::string> Rules;
-typedef std::queue<std::string> State;
+typedef std::queue<std::string> AutomataState;
 
 class Automata {
 public:
@@ -15,12 +15,12 @@ public:
 	void run();
 private:
 	int iterations_;
-	State currentState;
+	AutomataState currentAutomataState;
 	Rules rules;
 	std::string result;
-	void putInState(State &state, std::string partialState);
+	void putInAutomataState(AutomataState &AutomataState, std::string partialAutomataState);
 	void initializeRules(std::vector<std::string> stringRules);
-	void printState(State state);
+	void printAutomataState(AutomataState AutomataState);
 };
 
 #endif
