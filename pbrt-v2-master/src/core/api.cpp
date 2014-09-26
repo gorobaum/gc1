@@ -350,6 +350,15 @@ Reference<Shape> MakeShape(const string &name,
     else if (name == "nurbs")
         s = CreateNURBSShape(object2world, world2object, reverseOrientation,
                              paramSet);
+	else if (name == "lsystem")
+	{
+		*paramSet.floats[0]->data = 0.1;
+		//object2world = object2world.Scale(2,2,2);
+		s = CreateSphereShape(object2world, world2object,
+                              reverseOrientation, paramSet);
+		*paramSet.floats[0]->data += 0.1;
+		pbrtShape("sphere", paramSet);
+	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());
     paramSet.ReportUnused();
