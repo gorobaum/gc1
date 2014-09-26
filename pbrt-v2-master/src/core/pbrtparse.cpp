@@ -265,8 +265,7 @@ static bool lookupType(const char *name, int *type, string &sname);
      VOLUMEINTEGRATOR = 301,
      WORLDBEGIN = 302,
      WORLDEND = 303,
-     HIGH_PRECEDENCE = 304,
-	 AUTOMATA = 666
+     HIGH_PRECEDENCE = 304
    };
 #endif
 
@@ -644,7 +643,7 @@ static const char *const yytname[] =
   "string_list", "string_list_entry", "num_array",
   "single_element_num_array", "num_list", "num_list_entry", "paramlist",
   "paramlist_init", "paramlist_contents", "paramlist_entry",
-  "pbrt_stmt_list", "pbrt_stmt", "AUTOMATA", 0
+  "pbrt_stmt_list", "pbrt_stmt", 0
 };
 #endif
 
@@ -657,8 +656,7 @@ static const yytype_uint16 yytoknum[] =
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-	 666
+     295,   296,   297,   298,   299,   300,   301,   302,   303,   304
 };
 # endif
 
@@ -2156,18 +2154,6 @@ yyreduce:
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
     pbrtShape((yyvsp[(2) - (3)].string), params);
-    FreeArgs();
-}
-    break;
-
-	 case 666:
-
-/* Line 1821 of yacc.c  */
-#line 544 "core/pbrtparse.yy"
-    {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtAutomata((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 }
     break;

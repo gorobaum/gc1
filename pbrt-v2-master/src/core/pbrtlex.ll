@@ -160,7 +160,6 @@ Volume                  { return VOLUME; }
 VolumeIntegrator        { return VOLUMEINTEGRATOR; }
 WorldBegin              { return WORLDBEGIN; }
 WorldEnd                { return WORLDEND; }
-Automata				{ return AUTOMATA; }
 {WHITESPACE} /* do nothing */
 \n { line_num++; }
 {NUMBER} {

@@ -172,7 +172,6 @@ ParamArray *ribarray;
 %token RENDERER REVERSEORIENTATION ROTATE SAMPLER SCALE SHAPE STARTTIME
 %token SURFACEINTEGRATOR TEXTURE TRANSFORMBEGIN TRANSFORMEND TRANSFORMTIMES
 %token TRANSFORM TRANSLATE VOLUME VOLUMEINTEGRATOR WORLDBEGIN WORLDEND
-%token AUTOMATA
 
 %token HIGH_PRECEDENCE
 
@@ -555,14 +554,6 @@ pbrt_stmt: ACCELERATOR STRING paramlist
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
     pbrtShape($2, params);
-    FreeArgs();
-}
-
-| AUTOMATA STRING paramlist
-{
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtAutomata($2, params);
     FreeArgs();
 }
 
