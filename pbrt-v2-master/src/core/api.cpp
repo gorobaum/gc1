@@ -30,6 +30,9 @@
  */
 #include <stdlib.h>
 #include <vector>
+#include "lsysparser.h"
+#include "automata.h"
+#include "scenegenerator.h"
 
 
 // core/api.cpp*
@@ -354,8 +357,22 @@ Reference<Shape> MakeShape(const string &name,
                              paramSet);
 	else if (name == "lsystem")
 	{
+		string fname;
+		int i = 1;
+		fname = paramSet.FindString("lsystem", &i)->data();
+		if(fname.size() == 0)
+		{
+			printf("Error!\n");
+			return s;
+		}
+		lSysParser parser(fname.c_str());
+		parser.parseFile();
+		Automata automata(parser.getAxiom(), parser.getRules(), parser.getIterations());
+		automata.run();
+		SceneGenerator scenegenerator(automata.getFinalState());
+		scenegenerator.run();
 		vector<int> a = vector<int>();
-		*paramSet.floats[0]->data = 2.5;
+		//*paramSet.floats[0]->data = 2.5;
 
 		//object2world = object2world.Scale(2,2,2);
 		Transform Sc = Scale(0.2, 0.2, 0.2);
@@ -371,7 +388,7 @@ Reference<Shape> MakeShape(const string &name,
 		//s = CreateSphereShape(to, tw,
           //                    reverseOrientation, paramSet);
 		//*paramSet.floats[0]->data += 0.1;
-		pbrtRenderStaticShape("sphere", paramSet, to, tw);
+		//pbrtRenderStaticShape("sphere", paramSet, to, tw);
 	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());

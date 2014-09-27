@@ -98,11 +98,10 @@ public:
     void ReportUnused() const;
     void Clear();
     string ToString() const;
-
-	    // ParamSet Private Data
-    vector<Reference<ParamSetItem<bool> > > bools;
+    
+	vector<Reference<ParamSetItem<bool> > > bools;
     vector<Reference<ParamSetItem<int> > > ints;
-    vector<Reference<ParamSetItem<float> > > floats;
+	vector<Reference<ParamSetItem<float> > > floats;
     vector<Reference<ParamSetItem<Point> > > points;
     vector<Reference<ParamSetItem<Vector> > > vectors;
     vector<Reference<ParamSetItem<Normal> > > normals;
@@ -110,8 +109,9 @@ public:
     vector<Reference<ParamSetItem<string> > > strings;
     vector<Reference<ParamSetItem<string> > > textures;
     static map<string, Spectrum> cachedSpectra;
-    
+
 private:
+    // ParamSet Private Data
 
 };
 
