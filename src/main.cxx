@@ -3,6 +3,7 @@
 
 #include "parser.h"
 #include "automata.h"
+#include "scenegenerator.h"
 
 int main(int argc, char** argv) {
 	if (argc != 2) {
@@ -12,6 +13,8 @@ int main(int argc, char** argv) {
 		parser.parseFile();
 		Automata automata(parser.getAxiom(), parser.getRules(), parser.getIterations());
 		automata.run();
+		SceneGenerator scenegenerator(automata.getFinalState());
+		scenegenerator.run();
 	}
 	return 0;
 }

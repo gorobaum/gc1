@@ -1,8 +1,8 @@
 Axiom:
-ABA
+AABAABAAC
 Rules:
-A:A|
-B:~
+A:A
+B:[AABAABAAC]
 endRules
 Iterations:
 4	

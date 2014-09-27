@@ -56,3 +56,12 @@ void Automata::run() {
 		printAutomataState(currentAutomataState);
 	}
 }
+
+std::string Automata::getFinalState() {
+	std::string finalState;
+	while(!currentAutomataState.empty()) {
+		finalState.append(currentAutomataState.front());
+		currentAutomataState.pop();
+	}
+	return finalState;
+}
