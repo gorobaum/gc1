@@ -28,6 +28,8 @@
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  */
+#include <stdlib.h>
+#include <vector>
 
 
 // core/api.cpp*
@@ -352,6 +354,7 @@ Reference<Shape> MakeShape(const string &name,
                              paramSet);
 	else if (name == "lsystem")
 	{
+		vector<int> a = vector<int>();
 		*paramSet.floats[0]->data = 2.5;
 
 		//object2world = object2world.Scale(2,2,2);
@@ -361,14 +364,14 @@ Reference<Shape> MakeShape(const string &name,
 		//object2world = *object2world*Sc;
 		Transform *to = new Transform(*object2world);
 		Transform *tw = new Transform(*world2object);
-		*to = *to*Tr;
-		*to = *to*Sc;
-		*to = *to;
+		//*to = *to*Tr;
+		//*to = *to*Sc;
+		*to = Sc*Tr;//*to;
 		*tw = Inverse(*to);
-		s = CreateSphereShape(to, tw,
-                              reverseOrientation, paramSet);
+		//s = CreateSphereShape(to, tw,
+          //                    reverseOrientation, paramSet);
 		//*paramSet.floats[0]->data += 0.1;
-		//pbrtShape("sphere", paramSet);
+		pbrtRenderStaticShape("sphere", paramSet, to, tw);
 	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());
@@ -1070,6 +1073,38 @@ void pbrtShape(const string &name, const ParamSet &params) {
         renderOptions->currentInstance->push_back(prim);
     }
     
+    else {
+        renderOptions->primitives.push_back(prim);
+        if (area != NULL) {
+            renderOptions->lights.push_back(area);
+        }
+    }
+}
+
+void pbrtRenderStaticShape(const string &name, const ParamSet &params, Transform *obj2world, Transform *world2obj) {
+    VERIFY_WORLD("Shape");
+    Reference<Primitive> prim;
+    AreaLight *area = NULL;
+    // Create primitive for static shape
+    Reference<Shape> shape = MakeShape(name, obj2world, world2obj,
+    graphicsState.reverseOrientation, params);
+    if (!shape) return;
+    Reference<Material> mtl = graphicsState.CreateMaterial(params);
+    params.ReportUnused();
+
+    // Possibly create area light for shape
+    if (graphicsState.areaLight != "") 
+	{
+		area = MakeAreaLight(graphicsState.areaLight, curTransform[0], graphicsState.areaLightParams, shape);
+    }
+    prim = new GeometricPrimitive(shape, mtl, area);
+    // Add primitive to scene or current instance
+    if (renderOptions->currentInstance) 
+	{
+        if (area)
+            Warning("Area lights not supported with object instancing");
+        renderOptions->currentInstance->push_back(prim);
+    }
     else {
         renderOptions->primitives.push_back(prim);
         if (area != NULL) {

@@ -78,6 +78,7 @@ void pbrtNamedMaterial(const string &name);
 void pbrtLightSource(const string &name, const ParamSet &params);
 void pbrtAreaLightSource(const string &name, const ParamSet &params);
 void pbrtShape(const string &name, const ParamSet &params);
+void pbrtRenderStaticShape(const string &name, const ParamSet &params, Transform *obj2world, Transform *world2obj);
 void pbrtReverseOrientation();
 void pbrtVolume(const string &name, const ParamSet &params);
 void pbrtObjectBegin(const string &name);
