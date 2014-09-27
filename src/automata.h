@@ -13,6 +13,7 @@ class Automata {
 public:
 	Automata(std::string axiom, std::vector<std::string> stringRules, int iterations);
 	void run();
+	std::string getFinalState();
 private:
 	int iterations_;
 	AutomataState currentAutomataState;

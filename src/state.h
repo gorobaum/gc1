@@ -3,7 +3,6 @@
 
 class State {
 public:
-	State();
 	void move(double distance);
 	void turnLeft(double angle);
 	void turnRight(double angle);

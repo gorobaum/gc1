@@ -2,12 +2,16 @@
 #define TURTLE_H_
 
 #include <stack>
+#include <vector>
 
 #include "state.h"
 
 class Turtle {
 public:
-	Turtle();
+	Turtle() {
+		State state;
+		stateStack.push(state);
+	}
 	void move(double distance);
 	void turnLeft(double angle);
 	void turnRight(double angle);

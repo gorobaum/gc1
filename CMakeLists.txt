@@ -9,6 +9,7 @@ add_executable(main
 	src/parser.cxx
 	src/automata.cxx
 	src/state.cxx
-	src/turtle.cxx)
+	src/turtle.cxx
+	src/scenegenerator.cxx)
 
 list( APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
