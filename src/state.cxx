@@ -2,6 +2,12 @@
 
 #include <cmath>
 
+void State::move(double distance) {
+	pos[0] = pos[0] + heading[0]*distance;
+	pos[1] = pos[1] + heading[1]*distance;
+	pos[2] = pos[2] + heading[2]*distance;
+}
+
 void State::matrixTimesVector(double m[3][3], double v[3]){
 	v[0] = m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2];
 	v[1] = m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2];
