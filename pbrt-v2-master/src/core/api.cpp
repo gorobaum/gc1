@@ -352,12 +352,23 @@ Reference<Shape> MakeShape(const string &name,
                              paramSet);
 	else if (name == "lsystem")
 	{
-		*paramSet.floats[0]->data = 0.1;
+		*paramSet.floats[0]->data = 2.5;
+
 		//object2world = object2world.Scale(2,2,2);
-		s = CreateSphereShape(object2world, world2object,
+		Transform Sc = Scale(0.2, 0.2, 0.2);
+		Transform Tr = Translate(Vector(0.0,1.2,0.0));
+		//Transform Comp = Sc*Tr;
+		//object2world = *object2world*Sc;
+		Transform *to = new Transform(*object2world);
+		Transform *tw = new Transform(*world2object);
+		*to = *to*Tr;
+		*to = *to*Sc;
+		*to = *to;
+		*tw = Inverse(*to);
+		s = CreateSphereShape(to, tw,
                               reverseOrientation, paramSet);
-		*paramSet.floats[0]->data += 0.1;
-		pbrtShape("sphere", paramSet);
+		//*paramSet.floats[0]->data += 0.1;
+		//pbrtShape("sphere", paramSet);
 	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());

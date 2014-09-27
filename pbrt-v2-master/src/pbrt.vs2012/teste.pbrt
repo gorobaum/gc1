@@ -1,7 +1,7 @@
 Film "image"
 #	"integer xresolution" [128] "integer yresolution" [128] 
-LookAt 0 .2 .2    -.02 .1 0  0 1 0
-Camera "perspective" "float fov" [60]
+LookAt 0 0 1    0 0 0  0 1 0
+Camera "perspective" "float fov" [90]
 
 WorldBegin
 
@@ -19,10 +19,8 @@ Rotate 90 1 0 0
 Shape "disk" "float radius" [.25]
 AttributeEnd
 
-Translate 20 42 39
-Scale 2 2 2
 Material "matte" "color Kd" [.4 .42 .4]
 #Shape "lsystem" "string axioma" "aidiwaidawhdhia"
-Shape "lsystem" "float radius" [2.0]
+Shape "lsystem" "float radius" [2.0] "string testando" "teste!"
 
 WorldEnd
