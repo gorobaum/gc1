@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "turtle.h"
+#include "api.h"
 
 void Turtle::move(double distance) {
 	stateStack.top().move(distance);

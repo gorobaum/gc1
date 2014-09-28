@@ -357,6 +357,9 @@ Reference<Shape> MakeShape(const string &name,
                              paramSet);
 	else if (name == "lsystem")
 	{
+		Transform *to = new Transform(*object2world);
+		Transform *tw = new Transform(*world2object);
+		ParamSet *ps = new ParamSet();
 		string fname;
 		int i = 1;
 		fname = paramSet.FindString("lsystem", &i)->data();
@@ -370,23 +373,29 @@ Reference<Shape> MakeShape(const string &name,
 		Automata automata(parser.getAxiom(), parser.getRules(), parser.getIterations());
 		automata.run();
 		SceneGenerator scenegenerator(automata.getFinalState());
-		scenegenerator.run();
-		vector<int> a = vector<int>();
-		//*paramSet.floats[0]->data = 2.5;
+		scenegenerator.run(to, tw);
+
+		float a = 2;
+		float *b = &a;
+		*b = 0.8;		
+		ps->AddFloat("radius", b, 1);
+		*b = 1;
+		ps->AddFloat("zmax", b, 1);
+		*b = -*b;
+		ps->AddFloat("zmin", b, 1);
 
 		//object2world = object2world.Scale(2,2,2);
-		Transform Sc = Scale(0.2, 0.2, 0.2);
+		Transform Sc = Scale(0.8, 0.8, 0.8);
 		Transform Tr = Translate(Vector(0.0,1.2,0.0));
 		//Transform Comp = Sc*Tr;
 		//object2world = *object2world*Sc;
-		Transform *to = new Transform(*object2world);
-		Transform *tw = new Transform(*world2object);
+
 		//*to = *to*Tr;
 		//*to = *to*Sc;
-		*to = Sc*Tr;//*to;
+		*to = Sc**to;//*to;
 		*tw = Inverse(*to);
-		//s = CreateSphereShape(to, tw,
-          //                    reverseOrientation, paramSet);
+		//s = CreateCylinderShape(to, tw,
+			//reverseOrientation, *ps);
 		//*paramSet.floats[0]->data += 0.1;
 		//pbrtRenderStaticShape("sphere", paramSet, to, tw);
 	}
