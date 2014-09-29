@@ -43,6 +43,7 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 	Transform *to,*tw, rotation, translation;
 	ParamSet *ps = new ParamSet();
 	AdjustParameters(ps, distance);
+	int openBracer = 0;
 	for ( std::string::iterator it=lsystem_.begin(); it!=lsystem_.end(); ++it) {
 		char currentChar = *it;
 		std::cout << "Current char = " << currentChar << "\n";
@@ -81,10 +82,16 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 			case 'C':
 				break;
 			case '[':
+				openBracer++;
 				translationstck.push(translation);
 				rotationstck.push(rotation);
 				break;
 			case ']':
+				if (openBracer == 0) {
+					std::cout << "Existe um ] a mais \n";
+					exit(0);
+				}
+				else openBracer--;
 				translation = translationstck.top();
 				rotation = rotationstck.top();
 				translationstck.pop();

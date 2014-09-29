@@ -3,5 +3,8 @@ A
 Rules:
 A:AA[+A+AA+A/A\AA]AA
 endRules
+Materials:
+A:glass|Kd[2 2 2]
+endMaterials
 Iterations:
 1
