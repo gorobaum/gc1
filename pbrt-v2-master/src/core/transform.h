@@ -326,6 +326,6 @@ private:
     Matrix4x4 S[2];
 };
 
-
+float *MatrixVectorMult(Transform, float*);
 
 #endif // PBRT_CORE_TRANSFORM_H

@@ -471,3 +471,14 @@ Ray AnimatedTransform::operator()(const Ray &r) const {
 }
 
 
+float *MatrixVectorMult(Transform t, float *vec)
+{
+	float *res = new float[4];
+	Matrix4x4 m;
+	m = t.GetMatrix();
+	res[0] = m.m[0][0]*vec[0] + m.m[0][1]*vec[1] + m.m[0][2]*vec[2] + m.m[0][3]*vec[3];
+	res[1] = m.m[1][0]*vec[0] + m.m[1][1]*vec[1] + m.m[1][2]*vec[2] + m.m[1][3]*vec[3];
+	res[2] = m.m[2][0]*vec[0] + m.m[2][1]*vec[1] + m.m[2][2]*vec[2] + m.m[2][3]*vec[3];
+	res[3] = m.m[3][0]*vec[0] + m.m[3][1]*vec[1] + m.m[3][2]*vec[2] + m.m[3][3]*vec[3];
+	return res;
+}
