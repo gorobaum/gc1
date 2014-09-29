@@ -16,16 +16,19 @@ public:
 	void parseFile();
 	std::string getAxiom() { return axiom; }
 	std::vector<std::string> getRules() { return rules; }
+	std::vector<std::string> getMaterials() { return materials; }
 	int getIterations() { return iterations; }
 private:
 	bool parseAxiom();
-	bool parserules();
+	bool parseRules();
+	bool parseMaterials();
 	bool parseIterations();
 	void getNextLine(std::string &nextLine);
 	std::ifstream inputFile_;
 	std::string line;
 	std::string axiom;
 	std::vector<std::string> rules;
+	std::vector<std::string> materials;
 	int iterations;
 };
 

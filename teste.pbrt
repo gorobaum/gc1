@@ -23,7 +23,7 @@ Rotate 45 0 0 1
 #Translate 0 0 -3
 Scale 2 2 2
 Material "matte" "color Kd" [.8 .22 .22]
-Shape "lsystem" "string lsystem" "teste.txt"
-#Shape "lsystem" "float radius" [1.0] "string lsystem" "teste.txt"
+Shape "lsystem" "string lsystem" "teste2.txt"
+#Shape "lsystem" "float radius" [1.0] "string lsystem" "teste2.txt"
 
 WorldEnd

@@ -5,11 +5,14 @@
 #include <iostream>
 
 #define SEPARATOR ':'
+#define MATSEPARATOR '|'
 
-Automata::Automata(std::string axiom, std::vector<std::string> stringRules, int iterations) {
+Automata::Automata(std::string axiom, std::vector<std::string> stringRules, std::vector<std::string> stringMaterials, int iterations) {
 	iterations_ = iterations;
 	putInAutomataState(currentAutomataState, axiom);
 	initializeRules(stringRules);
+	initializeMaterials(stringMaterials);
+
 }
 
 void Automata::putInAutomataState(AutomataState &AutomataState, std::string partialAutomataState) {
@@ -27,6 +30,40 @@ void Automata::initializeRules(std::vector<std::string> stringRules) {
 		std::string rule = stringRule.substr(separatorPos+1);
 		std::pair<std::string,std::string> rulePair(key,rule);
 		rules.insert(rulePair);
+	}
+}
+
+void Automata::initializeMaterials(std::vector<std::string> stringMaterials) {
+	for (std::vector<std::string>::iterator it = stringMaterials.begin() ; it != stringMaterials.end(); ++it) {
+		std::size_t separatorPos, lastPos = 0;
+		std::string stringMaterial = *it;
+		separatorPos = stringMaterial.find_first_of(SEPARATOR);
+		std::string key = stringMaterial.substr(0, separatorPos);
+		std::string materialsAtStr = stringMaterial.substr(separatorPos+1);
+
+		std::string materialAtribute;
+		std::vector<std::string> materialAtributes;
+		while(1) {
+			separatorPos = materialsAtStr.find_first_of(MATSEPARATOR, lastPos);
+			if (separatorPos == std::string::npos) break;
+			materialAtribute = materialsAtStr.substr(lastPos, separatorPos);
+			materialAtributes.push_back(materialAtribute);
+			lastPos = separatorPos+1;
+		}
+		materialAtribute = materialsAtStr.substr(lastPos);
+		materialAtributes.push_back(materialAtribute);
+		std::pair<std::string,std::vector<std::string>> materialPair(key,materialAtributes);
+		materials.insert(materialPair);
+	}
+}
+
+void Automata::printMaterials() {
+	for ( auto it = materials.begin(); it != materials.end(); ++it ) {
+		std::cout << "The material for " << it->first << " are:\n";
+		std::vector<std::string> materialAtributes = it->second;
+		for (std::vector<std::string>::iterator itV = materialAtributes.begin() ; itV != materialAtributes.end(); ++itV) {
+			std::cout << *itV << "\n";
+		}
 	}
 }
 

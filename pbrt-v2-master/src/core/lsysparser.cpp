@@ -10,7 +10,8 @@ lSysParser::lSysParser(const char* inputFileName) {
 
 void lSysParser::parseFile() {
 	if (!parseAxiom()) std::cout << "The Axiom has some error\n";
-	else if (!parserules()) std::cout << "The Rules has some error\n";
+	else if (!parseRules()) std::cout << "The Rules has some error\n";
+	else if (!parseMaterials()) std::cout << "The Material has some error\n";
 	else if (!parseIterations()) std::cout << "The Iteration has some error\n";
 }
 
@@ -30,7 +31,7 @@ bool lSysParser::parseAxiom() {
 	return gotAxiom;
 }
 
-bool lSysParser::parserules() {
+bool lSysParser::parseRules() {
 	getNextLine(line);
 	bool gotRules = false;
 	if(line.compare("Rules:") == 0) {
@@ -44,6 +45,22 @@ bool lSysParser::parserules() {
 	}
 	return gotRules;
 }
+
+bool lSysParser::parseMaterials() {
+	getNextLine(line);
+	bool gotMaterials = false;
+	if(line.compare("Materials:") == 0) {
+		std::string material;
+		getNextLine(material);
+		while(material.compare("endMaterials") != 0) {
+			materials.push_back(material);
+			getNextLine(material);
+		}
+		gotMaterials = !materials.empty();
+	}
+	return gotMaterials;
+}
+
 
 bool lSysParser::parseIterations() {
 	bool gotIterations = false;

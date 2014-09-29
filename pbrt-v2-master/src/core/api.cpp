@@ -362,7 +362,7 @@ Reference<Shape> MakeShape(const string &name,
 		ParamSet *ps = new ParamSet();
 		string fname;
 		int i = 1;
-		fname = paramSet.FindString("lsystem", &i)->data();
+		fname = *paramSet.FindString("lsystem", &i);
 		if(fname.size() == 0)
 		{
 			printf("Error!\n");
@@ -370,7 +370,7 @@ Reference<Shape> MakeShape(const string &name,
 		}
 		lSysParser parser(fname.c_str());
 		parser.parseFile();
-		Automata automata(parser.getAxiom(), parser.getRules(), parser.getIterations());
+		Automata automata(parser.getAxiom(), parser.getRules(), parser.getMaterials(), parser.getIterations());
 		automata.run();
 		SceneGenerator scenegenerator(automata.getFinalState());
 		scenegenerator.run(to, tw);
