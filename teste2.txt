@@ -1,0 +1,7 @@
+Axiom:
+A
+Rules:
+A:AA[+A+AA+A/A\AA]AA
+endRules
+Iterations:
+1
