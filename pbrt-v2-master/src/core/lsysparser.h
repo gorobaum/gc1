@@ -1,3 +1,7 @@
+#if defined(_MSC_VER)
+#pragma once
+#endif
+
 #ifndef EP1_PARSER_H_
 #define EP1_PARSER_H_
 
