@@ -6,7 +6,7 @@ include_directories (src)
 
 add_executable(main 
 	src/main.cxx
-	src/parser.cxx
+	src/lsysparser.cxx
 	src/automata.cxx
 	src/state.cxx
 	src/turtle.cxx

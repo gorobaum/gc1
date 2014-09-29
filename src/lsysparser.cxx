@@ -1,6 +1,6 @@
 #include <sstream>
 
-#include "parser.h"
+#include "lsysparser.h"
 
 Parser::Parser(char* inputFileName) {
 	inputFile_.open(inputFileName);

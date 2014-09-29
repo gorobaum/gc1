@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "parser.h"
+#include "lsysparser.h"
 #include "automata.h"
 #include "scenegenerator.h"
 
