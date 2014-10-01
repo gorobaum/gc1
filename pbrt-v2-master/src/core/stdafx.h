@@ -15,7 +15,5 @@
 #include "automata.h"
 #include "lsysparser.h"
 #include "scenegenerator.h"
-#include "state.h"
-#include "turtle.h"
 
 #endif // _MSC_VER

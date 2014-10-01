@@ -9,7 +9,7 @@
 #include <stack>
 
 
-#define angle 25
+#define angle 90
 #define radius 0.4
 #define distanceMultiplier 1.2
 
@@ -56,32 +56,30 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 		switch(currentChar) {
 			case '-':
 				// turn left
-				rotation = Rotate(angle, Vector(0.0, 1.0, 0.0))*rotation;
+				rotation = *object2world*Rotate(angle, Vector(0.0, 1.0, 0.0))*Inverse(*object2world)*rotation;
 				break;
 			case '+':
 				// turn right
-				rotation = Rotate(-angle, Vector(0.0, 1.0, 0.0))*rotation;
+				rotation = *object2world*Rotate(angle, Vector(0.0, 1.0, 0.0))*Inverse(*object2world)*rotation;
 				break;
 			case '^':
 				// pitch down
-				rotation = Rotate(angle, Vector(1.0, 0.0, 0.0))*rotation;
+				rotation = *object2world*Rotate(angle, Vector(1.0, 0.0, 0.0))*Inverse(*object2world)*rotation;
 				break;
 			case '&':
 				// pitch up
-				rotation = Rotate(-angle, Vector(1.0, 0.0, 0.0))*rotation;
+				rotation = *object2world*Rotate(-angle, Vector(1.0, 0.0, 0.0))*Inverse(*object2world)*rotation;
 				break;
 			case '/':
 				// roll right
-				rotation = Rotate(angle, Vector(0.0, 0.0, 1.0))*rotation;
+				rotation = *object2world*Rotate(angle, Vector(0.0, 0.0, 1.0))*Inverse(*object2world)*rotation;
 				break;
 			case '\\':
 				// roll left
-				rotation = Rotate(-angle, Vector(0.0, 0.0, 1.0))*rotation;
+				rotation = *object2world*Rotate(-angle, Vector(0.0, 0.0, 1.0))*Inverse(*object2world)*rotation;
 				break;
 			case 'A':
-				printf("initial: [0]=%f [1]=%f [2]=%f\n",initial_direction[0],initial_direction[1],initial_direction[2]);
 				new_dir = MatrixVectorMult(rotation, initial_direction);
-				printf("new: [0]=%f [1]=%f [2]=%f\n",new_dir[0],new_dir[1],new_dir[2]);
 				to = new Transform(translation*rotation**object2world);
 				tw = new Transform(Inverse(*to));
 				pbrtRenderStaticShape("cylinder", *ps, to, tw);

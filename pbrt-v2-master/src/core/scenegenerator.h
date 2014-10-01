@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "turtle.h"
 #include "transform.h"
 
 class SceneGenerator {
@@ -15,7 +14,6 @@ public:
 private:
 	std::string lsystem_;
 	int distance_;
-	Turtle turtle;
 };
 
 #endif
