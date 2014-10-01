@@ -374,30 +374,6 @@ Reference<Shape> MakeShape(const string &name,
 		automata.run();
 		SceneGenerator scenegenerator(automata.getFinalState());
 		scenegenerator.run(to, tw);
-
-		float a = 2;
-		float *b = &a;
-		*b = 0.8;		
-		ps->AddFloat("radius", b, 1);
-		*b = 1;
-		ps->AddFloat("zmax", b, 1);
-		*b = -*b;
-		ps->AddFloat("zmin", b, 1);
-
-		//object2world = object2world.Scale(2,2,2);
-		Transform Sc = Scale(0.8, 0.8, 0.8);
-		Transform Tr = Translate(Vector(0.0,1.2,0.0));
-		//Transform Comp = Sc*Tr;
-		//object2world = *object2world*Sc;
-
-		//*to = *to*Tr;
-		//*to = *to*Sc;
-		*to = Sc**to;//*to;
-		*tw = Inverse(*to);
-		//s = CreateCylinderShape(to, tw,
-			//reverseOrientation, *ps);
-		//*paramSet.floats[0]->data += 0.1;
-		//pbrtRenderStaticShape("sphere", paramSet, to, tw);
 	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());
