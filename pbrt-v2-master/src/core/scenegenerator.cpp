@@ -9,7 +9,7 @@
 #include <stack>
 
 
-#define angle 90
+#define angle 25
 #define radius 0.4
 #define distanceMultiplier 1.2
 
@@ -55,8 +55,7 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 		//std::cout << "Current char = " << currentChar << "\n";
 		switch(currentChar) {
 			case '-':
-				// turn left
-				rotation = *object2world*Rotate(angle, Vector(0.0, 1.0, 0.0))*Inverse(*object2world)*rotation;
+				rotation = *object2world*Rotate(-angle, Vector(0.0, 1.0, 0.0))*Inverse(*object2world)*rotation;
 				break;
 			case '+':
 				// turn right
