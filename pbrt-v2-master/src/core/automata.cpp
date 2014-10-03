@@ -76,6 +76,18 @@ void Automata::printAutomataState(AutomataState AutomataState) {
 	std::cout << "\n";
 }
 
+void Automata::printAutomataStateToFile(AutomataState AutomataState, string filename) {
+	std::ofstream out;
+	out.open (filename);
+	while(!AutomataState.empty()) {
+		std::string partialAutomataState = AutomataState.front();
+		AutomataState.pop();
+		out << partialAutomataState;
+	}
+	out << "\n";
+	out.close();
+}
+
 void Automata::run() {
 	for(int iteration = 0; iteration < iterations_; iteration++) {
 		std::cout << "Starting iteration " << iteration << "\n";

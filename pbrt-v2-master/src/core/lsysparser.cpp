@@ -13,6 +13,7 @@ void lSysParser::parseFile() {
 	else if (!parseRules()) std::cout << "The Rules has some error\n";
 	else if (!parseMaterials()) std::cout << "The Material has some error\n";
 	else if (!parseIterations()) std::cout << "The Iteration has some error\n";
+	inputFile_.close();
 }
 
 void lSysParser::getNextLine(std::string &nextLine) {

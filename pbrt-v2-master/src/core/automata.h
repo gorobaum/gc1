@@ -26,6 +26,7 @@ private:
 	void initializeMaterials(std::vector<std::string> stringMaterials);
 	void printAutomataState(AutomataState AutomataState);
 	void printMaterials();
+	void printAutomataStateToFile(AutomataState AutomataState, string filename);
 };
 
 #endif

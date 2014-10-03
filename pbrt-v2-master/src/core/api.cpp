@@ -374,6 +374,11 @@ Reference<Shape> MakeShape(const string &name,
 		automata.run();
 		SceneGenerator scenegenerator(automata.getFinalState());
 		scenegenerator.run(to, tw);
+		float value, *ptr;
+		value = 0.0001;
+		ptr = &value;
+		ps->AddFloat("radius",  ptr, 1);
+		s = CreateSphereShape(object2world, world2object, reverseOrientation, *ps);
 	}
     else
         Warning("Shape \"%s\" unknown.", name.c_str());

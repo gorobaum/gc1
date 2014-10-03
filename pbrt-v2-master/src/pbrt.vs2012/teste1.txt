@@ -1,7 +1,7 @@
 Axiom:
 X
 Rules:
-X:A-[[X]+X]+A[+AX]-X
+X:A-[[X]+X]+A[+AX]-XC
 A:AA
 endRules
 Materials:

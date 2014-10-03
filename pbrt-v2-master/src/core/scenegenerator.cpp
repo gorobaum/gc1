@@ -29,7 +29,7 @@ float getDistance(float *direction, Transform object2world)
 	return sqrt(direction[0]*direction[0]+direction[1]*direction[1]+direction[2]*direction[2])*distanceMultiplier;
 }
 
-void AdjustParameters(ParamSet *ps, float distance)
+void AdjustParametersForCylinders(ParamSet *ps, float distance)
 {
 	float value, *ptr;
 	value = radius;
@@ -41,6 +41,16 @@ void AdjustParameters(ParamSet *ps, float distance)
 	ps->AddFloat("zmin", ptr, 1);
 }
 
+void AdjustParametersForSphere(ParamSet *ps, float distance)
+{
+	float value, *ptr;
+	value = radius;
+	ptr = &value;
+	ps->AddFloat("radius",  ptr, 1);
+	ps->EraseFloat("zmax");
+	ps->EraseFloat("zmin");
+}
+
 void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 	std::stack<Transform> translationstck, rotationstck;
 	float *initial_direction, *new_dir, distance;
@@ -49,7 +59,7 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 	distance = getDistance(initial_direction, *object2world);
 	Transform *to,*tw, rotation, translation;
 	ParamSet *ps = new ParamSet();
-	AdjustParameters(ps, distance);
+	AdjustParametersForCylinders(ps, distance);
 	int openBracer = 0;
 	for ( std::string::iterator it=lsystem_.begin(); it!=lsystem_.end(); ++it) {
 		char currentChar = *it;
@@ -84,10 +94,15 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 				tw = new Transform(Inverse(*to));
 				pbrtRenderStaticShape("cylinder", *ps, to, tw);
 				translation = Translate(Vector(new_dir[0], new_dir[1], new_dir[2]))*translation;
-				//delete[] to;
-				//delete[] tw;
 				break;
 			case 'C':
+				AdjustParametersForSphere(ps, distance);
+				new_dir = MatrixVectorMult(rotation, initial_direction);
+				translation = Translate(Vector((distanceMultiplier-1)*new_dir[0], (distanceMultiplier-1)*new_dir[1], (distanceMultiplier-1)*new_dir[2]))*translation;
+				to = new Transform(translation*rotation**object2world);
+				tw = new Transform(Inverse(*to));
+				pbrtRenderStaticShape("sphere", *ps, to, tw);
+				AdjustParametersForCylinders(ps, distance);
 				break;
 			case '[':
 				openBracer++;
