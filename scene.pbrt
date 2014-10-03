@@ -1,0 +1,71 @@
+Film "image" "integer xresolution" [400] "integer yresolution" [400] 
+#Sampler "adaptive" "integer minsamples" [8] "integer maxsamples" [64]
+Sampler "adaptive" "integer minsamples" [2] "integer maxsamples" [16]
+Renderer "sampler"
+
+LookAt 5 45 45    1 11 0 0 1 0
+Camera "perspective" "float fov" [90]
+
+WorldBegin
+
+
+
+#Luz - Ceu
+AttributeBegin
+LightSource "infinite" "color L" [ 0.08 0.12 0.21 ] "integer nsamples"  [2]
+AttributeEnd
+
+
+#Luz - Sol
+AttributeBegin
+LightSource "distant" "color L" [ 1.6 1.1 0.45 ] "point from" [290 160 50] "point to" [0 0 0]
+AttributeEnd
+
+
+#Luz - Sol2 - brilho na parte esquerda da imagem
+AttributeBegin
+Translate 290 35 -50
+AreaLightSource "area" "color L" [ 120 76 48 ] "integer nsamples"  [4]
+Shape "sphere" "float radius" [15]
+AttributeEnd
+
+
+
+#Imagem original: http://2.bp.blogspot.com/-4T15yJnuijM/U7Fv20jIdpI/AAAAAAAAFa8/KUtHG9Gs2z8/s1600/%28GRASS+2%29+seamless+turf+lawn+green+ground+field+texture.jpg
+#Chao
+AttributeBegin
+Texture "grass" "spectrum" "imagemap" "string filename" "grass.tga" "string wrap" "repeat" "string mapping" "uv" "float uscale" [10] "float vscale" [10]
+Material "matte" "texture Kd" "grass"
+Shape "trianglemesh" "point P" [ -350 0 -200 350 0 -200 350 0 200 -350 0 200 ]
+	"integer indices" [ 0 1 2 2 3 0]
+AttributeEnd
+
+
+#Imagem original: http://jimswriting.files.wordpress.com/2013/08/3.jpg
+#Skybox
+AttributeBegin
+Texture "sky" "color" "imagemap" "string filename" "sky.tga" "string wrap" "repeat" "string mapping" "uv"
+Material "matte" "texture Kd" "sky"
+Shape "trianglemesh" "point P" [ -450 0 -200 450 0 -200 450 550 -200 -450 550 -200 ]
+	"integer indices" [ 0 1 2 2 3 0]
+AttributeEnd
+
+
+Scale 0.35 0.35 0.35
+#L-system
+AttributeBegin
+Rotate 130 0 1 0
+Rotate -90 1 0 0
+Material "matte" "color Kd" [0.6 1.0 0.6]
+Shape "lsystem" "string lsystem" "teste1.txt"
+AttributeEnd
+
+
+
+
+
+
+
+
+
+WorldEnd

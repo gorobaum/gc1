@@ -10,9 +10,9 @@
 
 
 #define angle 25
-#define radius 0.45
+#define radius 0.75
 #define correctionFactor 0.35
-#define distanceMultiplier 1.6
+#define distanceMultiplier 1.7
 
 float *getDirection(float *direction, Transform object2world)
 {
@@ -84,6 +84,8 @@ void SceneGenerator::run(Transform *object2world, Transform *world2object) {
 				tw = new Transform(Inverse(*to));
 				pbrtRenderStaticShape("cylinder", *ps, to, tw);
 				translation = Translate(Vector(new_dir[0], new_dir[1], new_dir[2]))*translation;
+				//delete[] to;
+				//delete[] tw;
 				break;
 			case 'C':
 				break;
