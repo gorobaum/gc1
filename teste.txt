@@ -1,8 +1,0 @@
-Axiom:
-AABAABAAC
-Rules:
-A:A
-B:[AABAABAAC]
-endRules
-Iterations:
-4	

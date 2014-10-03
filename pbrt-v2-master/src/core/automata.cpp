@@ -90,7 +90,7 @@ void Automata::printAutomataStateToFile(AutomataState AutomataState, string file
 
 void Automata::run() {
 	for(int iteration = 0; iteration < iterations_; iteration++) {
-		std::cout << "Starting iteration " << iteration << "\n";
+		//std::cout << "Starting iteration " << iteration << "\n";
 		AutomataState nextAutomataState;
 		while(!currentAutomataState.empty()) {
 			std::string character = currentAutomataState.front();
@@ -104,7 +104,7 @@ void Automata::run() {
 			}
 		}
 		currentAutomataState = nextAutomataState;
-		printAutomataState(currentAutomataState);
+		//printAutomataState(currentAutomataState);
 	}
 }
 
