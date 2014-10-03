@@ -99,6 +99,9 @@ public:
     void Clear();
     string ToString() const;
     
+
+private:
+    // ParamSet Private Data
 	vector<Reference<ParamSetItem<bool> > > bools;
     vector<Reference<ParamSetItem<int> > > ints;
 	vector<Reference<ParamSetItem<float> > > floats;
@@ -109,10 +112,6 @@ public:
     vector<Reference<ParamSetItem<string> > > strings;
     vector<Reference<ParamSetItem<string> > > textures;
     static map<string, Spectrum> cachedSpectra;
-
-private:
-    // ParamSet Private Data
-
 };
 
 

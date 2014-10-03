@@ -1,0 +1,11 @@
+Axiom:
+X
+Rules:
+X:A-[[X]+X]+A[+AX]-X
+A:AA
+endRules
+Materials:
+A:glass|Kd[2 2 2]
+endMaterials
+Iterations:
+5

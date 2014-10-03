@@ -10,8 +10,9 @@
 
 
 #define angle 25
-#define radius 0.4
-#define distanceMultiplier 1.2
+#define radius 0.45
+#define correctionFactor 0.35
+#define distanceMultiplier 1.6
 
 float *getDirection(float *direction, Transform object2world)
 {
@@ -25,7 +26,7 @@ float *getDirection(float *direction, Transform object2world)
 
 float getDistance(float *direction, Transform object2world)
 {
-	return sqrt(direction[0]*direction[0]+direction[1]*direction[1]+direction[2]*direction[2]);
+	return sqrt(direction[0]*direction[0]+direction[1]*direction[1]+direction[2]*direction[2])*distanceMultiplier;
 }
 
 void AdjustParameters(ParamSet *ps, float distance)
@@ -36,7 +37,7 @@ void AdjustParameters(ParamSet *ps, float distance)
 	ps->AddFloat("radius",  ptr, 1);
 	*ptr = distance*distanceMultiplier;
 	ps->AddFloat("zmax", ptr, 1);
-	*ptr = 0*distanceMultiplier;
+	*ptr = -correctionFactor;
 	ps->AddFloat("zmin", ptr, 1);
 }
 

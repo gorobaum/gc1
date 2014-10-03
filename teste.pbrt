@@ -1,29 +1,64 @@
-Film "image"
-#	"integer xresolution" [128] "integer yresolution" [128] 
-LookAt 1 2 4    0 0 0  0 1 0
+Film "image" "integer xresolution" [400] "integer yresolution" [400] 
+Sampler "adaptive" "integer minsamples" [8] "integer maxsamples" [64]
+Renderer "sampler"
+
+LookAt 5 45 45    1 11 0 0 1 0
 Camera "perspective" "float fov" [90]
 
 WorldBegin
 
-AttributeBegin
-CoordSysTransform "camera"
-#LightSource "point" "color I" [ .3 .3 .3 ]
-LightSource "point" "color I" [ .7 .7 .7 ]
-AttributeEnd
 
+
+#Luz - Ceu
 AttributeBegin
-#AreaLightSource "area" "color L" [60 60 60 ] "integer nsamples"  [3]
-AreaLightSource "area" "color L" [15 15 15 ] "integer nsamples"  [4]
-Translate 0 2 0
+AreaLightSource "area" "color L" [ 0.15 0.21 0.33 ] "integer nsamples"  [2]
+Translate 0 90 0
 Rotate 90 1 0 0
-Shape "disk" "float radius" [.25]
+Shape "disk" "float radius" [350]
 AttributeEnd
 
-Rotate 45 0 0 1
-#Translate 0 0 -3
-Scale 2 2 2
-Material "matte" "color Kd" [.8 .22 .22]
-Shape "lsystem" "string lsystem" "teste2.txt"
-#Shape "lsystem" "float radius" [1.0] "string lsystem" "teste2.txt"
+
+#Luz - Sol
+AttributeBegin
+Translate 300 35 -50
+AreaLightSource "area" "color L" [ 26 20 10 ] "integer nsamples"  [20]
+Shape "sphere" "float radius" [45]
+AttributeEnd
+
+
+
+#Imagem original: http://2.bp.blogspot.com/-4T15yJnuijM/U7Fv20jIdpI/AAAAAAAAFa8/KUtHG9Gs2z8/s1600/%28GRASS+2%29+seamless+turf+lawn+green+ground+field+texture.jpg
+#Chao
+AttributeBegin
+Texture "grass" "spectrum" "imagemap" "string filename" "grass.tga" "string wrap" "repeat" "string mapping" "uv" "float uscale" [15] "float vscale" [15]
+Material "matte" "texture Kd" "grass"
+Shape "trianglemesh" "point P" [ -350 0 -200 350 0 -200 350 0 200 -350 0 200 ]
+	"integer indices" [ 0 1 2 2 3 0]
+AttributeEnd
+
+
+#Imagem original: http://jimswriting.files.wordpress.com/2013/08/3.jpg
+#Skybox
+AttributeBegin
+Texture "sky" "color" "imagemap" "string filename" "sky.tga"
+Material "matte" "texture Kd" "sky"
+Shape "trianglemesh" "point P" [ -450 0 -200 450 0 -200 450 550 -200 -450 550 -200 ]
+	"integer indices" [ 0 1 2 2 3 0]
+AttributeEnd
+
+
+Scale 0.35 0.35 0.35
+#L-system
+AttributeBegin
+Rotate 180 0 1 0
+Rotate -90 1 0 0
+Material "matte" "color Kd" [0.6 1.0 0.6]
+Shape "lsystem" "string lsystem" "teste1.txt"
+AttributeEnd
+
+
+
+
+
 
 WorldEnd
