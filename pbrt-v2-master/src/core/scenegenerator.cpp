@@ -10,7 +10,7 @@
 
 
 #define angle 25
-#define radius 0.75
+#define radius 0.25
 #define correctionFactor 0.35
 #define distanceMultiplier 1.7
 
